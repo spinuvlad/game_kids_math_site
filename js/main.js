@@ -16,7 +16,7 @@ var show = document.getElementById('show');
 
 var objLevels = {lev1: pushLevel1, lev2: pushLevel2, lev3: pushLevel3, 
 								 lev4: pushLevel4, lev5: pushLevel5, lev6: pushLevel6,
-								 lev7: pushLevel7, lev8: pushLevel8};
+								 lev7: pushLevel7, lev8: pushLevel8, lev9: pushLevel9};
 
 levels[0].addEventListener('click', objLevels.lev1);
 levels[1].addEventListener('click', objLevels.lev2);
@@ -26,6 +26,7 @@ levels[4].addEventListener('click', objLevels.lev5);
 levels[5].addEventListener('click', objLevels.lev6);
 levels[6].addEventListener('click', objLevels.lev7);
 levels[7].addEventListener('click', objLevels.lev8);
+levels[8].addEventListener('click', objLevels.lev9);
 
 var timerE = 0, numE, indexLevel;
 var arr1 = [];
@@ -79,6 +80,56 @@ function checkResult(){
   }
 }
 
+function pushLevel9(){
+indexLevel = nodeLevels.indexOf(this) + 1;	
+	getInputNumber();
+	if (numExerInput.value == ''){
+		outMessage.style.display = 'block';
+		outMessage.innerHTML = 'Introduce-ti numarul de exercitii...';
+		outMessage.addEventListener('click', refrashDoc);
+	} 
+	else{
+	disabledHead();
+	runTimer();
+	generateNum(10);
+
+	for (var i = 0; i < numE; i++){
+		var span = document.createElement('span');
+		var input = document.createElement('input');
+				input.className = 'input-result';
+				input.type = 'number';
+				input.addEventListener('mouseout', mouseOver);
+
+		var iconNo = document.createElement('i');
+				iconNo.style.visibility = 'hidden';
+				iconNo.innerHTML = '<i class="fas fa-times"></i>';
+
+		var	iconYes = document.createElement('i');
+				iconYes.style.visibility = 'hidden';
+				iconYes.innerHTML = '<i class="fas fa-thumbs-up"></i>'
+
+		var br = document.createElement('br');
+
+		span.innerHTML = arr1[i] + ' * ' + arr2[i] + ' = ';
+		arrResult[i] = arr1[i] * arr2[i];
+
+		show.appendChild(span);
+		show.appendChild(input);
+		show.appendChild(iconNo);
+		show.appendChild(iconYes);
+		show.appendChild(br);
+	}
+
+	var button = document.createElement('input');
+			button.type = 'submit';
+			button.value = 'Verifica!';
+			button.id = 'button';
+	show.appendChild(button);
+
+	var butt = document.getElementById('button');
+	butt.addEventListener('click', checkResult);
+	}
+}
 
 function pushLevel8(){
 	indexLevel = nodeLevels.indexOf(this) + 1;
